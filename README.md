@@ -1,1 +1,0 @@
-# netcore_ecommerce
