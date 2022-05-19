@@ -1,0 +1,78 @@
+- name: Configure instance
+  hosts: all
+  remote_user: ec2-user
+  become: yes
+
+  tasks:
+    - name: Update system
+      yum:
+        name: '*'
+        state: latest
+        update_only: true
+
+    - name: "Make sure boto is installed"
+      pip:
+        name: ['docker', 'boto3']
+
+    - name: Install Docker
+      yum:
+        state: latest
+        name: docker
+
+    - name: Start docker
+      service:
+        name: docker
+        enabled:  true
+        state:  started
+
+    - name: Add user to docker group
+      user:
+        name: ec2-user
+        append: yes
+        groups:  docker
+        
+    - name: Create directory for the whole project solutiobn
+      file:
+        path: /App
+        state: directory
+    
+    
+    - name: Create directory for the Core project source
+      file:
+        path: /App/Core
+        state: directory   
+
+    - name: Create directory for the ProductService source
+      file:
+        path: /App/ProductService
+        state:  directory
+
+    - name: Copy Core Project files to destination
+      synchronize:
+        src: ../../Core/
+        dest: /App/Core
+        owner: yes
+          
+    - name: Copy ProductService files to destination
+      synchronize:
+        src:  ../../ProductService/
+        dest: /App/ProductService
+        owner: yes
+
+    - name: Build the docker image
+      docker_image:
+        name: product-service
+        tag: v1
+        source: build
+        build:
+          dockerfile: /App/ProductService/Deployment/Dockerfile
+          path: /App
+        state: present
+
+    - name: Start the container in port
+      docker_container:
+        name: product-service
+        state: started
+        image: product-service:v1
+        published_ports: ['5000:5000']
+        restart_policy: always
