@@ -22,4 +22,5 @@ public class Product
     
     [DynamoDBProperty(AttributeName = "CreatedAt")]
     public DateTime CreatedAt { get; set; }
+
 }
