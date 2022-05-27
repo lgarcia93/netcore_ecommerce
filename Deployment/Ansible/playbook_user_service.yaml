@@ -31,7 +31,7 @@
         append: yes
         groups:  docker
 
-    - name: Create directory for the whole project solutiobn
+    - name: Create directory for the whole project solution
       file:
         path: /App
         state: directory
@@ -71,8 +71,8 @@
 
     - name: Start the container in port
       docker_container:
-        name: product-service
+        name: user-service
         state: started
-        image: product-service:v1
+        image: user-service:v1
         published_ports: ['6000:6000']
         restart_policy: always

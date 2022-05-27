@@ -54,7 +54,7 @@ public class DynamoDbUserRepository : IUserRepository
         var keyExpression = "UserName = :userName";
         var keyConditions = new Dictionary<string, AttributeValue>();
         
-        keyConditions.Add("userName", new AttributeValue{S = userName});
+        keyConditions.Add("UserName", new AttributeValue{S = userName});
         
         var request = new QueryRequest
         {
@@ -78,7 +78,7 @@ public class DynamoDbUserRepository : IUserRepository
                 UserId =item["Address"].S,
                 UserName = item["Address"].S,  
                 Password = item["Password"].S,
-                Role = item["ROle"].S
+                Role = item["Role"].S
             };
 
             return user;
