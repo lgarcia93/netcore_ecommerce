@@ -34,7 +34,7 @@ public class AuthenticationHandler : IAuthHandler
             new Claim(ClaimTypes.DateOfBirth, user.BirthDay),
         };
 
-        var expiryDate = DateTime.Now.AddMinutes(jwtOptions.ExpiryMinutes);
+        var expiryDate = DateTime.Now.AddMinutes(jwtOptions.ExpiryInMinutes);
         
         var token = new JwtSecurityToken(
             jwtOptions.Issuer,

@@ -39,7 +39,7 @@ public class DynamoDbUserRepository : IUserRepository
             Role = user.Role
         };
 
-        await _dynamoDbContext.SaveAsync(user);
+        await _dynamoDbContext.SaveAsync(newUser);
 
         return newUser;
     }
@@ -51,10 +51,10 @@ public class DynamoDbUserRepository : IUserRepository
 
     public async Task<User?> GetUserByUserName(string userName)
     {
-        var keyExpression = "UserName = :userName";
+        var keyExpression = "UserName = :UserName";
         var keyConditions = new Dictionary<string, AttributeValue>();
         
-        keyConditions.Add("UserName", new AttributeValue{S = userName});
+        keyConditions.Add(":UserName", new AttributeValue{S = userName});
         
         var request = new QueryRequest
         {
@@ -72,11 +72,11 @@ public class DynamoDbUserRepository : IUserRepository
             var user = new User
             {
                 Address = item["Address"].S,
-                Email = item["Address"].S,
-                BirthDay = item["Address"].S,
-                CreatedAt = DateTime.Parse(item["Address"].S),
-                UserId =item["Address"].S,
-                UserName = item["Address"].S,  
+                Email = item["Email"].S,
+                BirthDay = item["BirthDay"].S,
+                CreatedAt = DateTime.Parse(item["CreatedAt"].S),
+                UserId = item["UserId"].S,
+                UserName = item["UserName"].S,  
                 Password = item["Password"].S,
                 Role = item["Role"].S
             };

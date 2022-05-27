@@ -31,7 +31,7 @@ resource "aws_dynamodb_table" "dynamo_users_table" {
   global_secondary_index {
     hash_key        = "UserName"
     name            = "UserNameIndex"
-    projection_type = "KEYS_ONLY"
+    projection_type = "ALL"
     
     write_capacity = 1
     read_capacity = 1
