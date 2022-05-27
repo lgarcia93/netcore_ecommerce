@@ -35,7 +35,8 @@ public class DynamoDbUserRepository : IUserRepository
             Email = user.Email,
             BirthDay = user.BirthDay,
             UserName = user.UserName,
-            Password = hashedPassword
+            Password = hashedPassword,
+            Role = user.Role
         };
 
         await _dynamoDbContext.SaveAsync(user);
@@ -76,7 +77,8 @@ public class DynamoDbUserRepository : IUserRepository
                 CreatedAt = DateTime.Parse(item["Address"].S),
                 UserId =item["Address"].S,
                 UserName = item["Address"].S,  
-                Password = item["Password"].S
+                Password = item["Password"].S,
+                Role = item["ROle"].S
             };
 
             return user;

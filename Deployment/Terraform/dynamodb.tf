@@ -14,8 +14,8 @@ resource "aws_dynamodb_table" "dynamo_products_table" {
 resource "aws_dynamodb_table" "dynamo_users_table" {
   name           = "users"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 2
+  write_capacity = 2
   hash_key       = "UserId"
  
   attribute {
@@ -31,6 +31,9 @@ resource "aws_dynamodb_table" "dynamo_users_table" {
   global_secondary_index {
     hash_key        = "UserName"
     name            = "UserNameIndex"
-    projection_type = ""
+    projection_type = "KEYS_ONLY"
+    
+    write_capacity = 1
+    read_capacity = 1
   }
 }

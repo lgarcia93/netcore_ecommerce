@@ -3,7 +3,7 @@ resource "aws_instance" "ecommerce_machine" {
   instance_type               = var.instance_type
   associate_public_ip_address = true
   security_groups             = [aws_security_group.ecommerce_machine_sg.id]
-  subnet_id                   = local.subnet_id
+  subnet_id                   = aws_subnet.ecommerce-subnet-public-1.id
   key_name                    = "ec2api"
   iam_instance_profile        = "api"
 
@@ -29,5 +29,9 @@ resource "aws_instance" "ecommerce_machine" {
 
   provisioner "local-exec" {
     command = "ansible-playbook -i ${aws_instance.ecommerce_machine.public_ip}, --private-key ${local.private_key_path} ../Ansible/playbook_product_service.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i ${aws_instance.ecommerce_machine.public_ip}, --private-key ${local.private_key_path} ../Ansible/playbook_user_service.yaml"
   }
 }

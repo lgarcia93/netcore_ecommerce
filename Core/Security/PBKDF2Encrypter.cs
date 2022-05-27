@@ -4,15 +4,8 @@ namespace Core.Security;
 
 public class Pbkdf2Encrypter : IEncrypter
 {
-    private readonly int _iterations;
-    private readonly int _randomKeyBytes;
-    
-    public Pbkdf2Encrypter(int randomKeyBytes, int iterations = 1000)
-    {
-        _iterations = iterations;
-        _randomKeyBytes = randomKeyBytes;
-    }
-    
+   private readonly int _iterations = 1000;
+   private readonly int _randomKeyBytes = 50;
     public string GetHash(string value)
     {
         var rfc2898DeriveBytes = new Rfc2898DeriveBytes(

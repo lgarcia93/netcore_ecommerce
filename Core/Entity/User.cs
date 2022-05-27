@@ -25,4 +25,8 @@ public class User
     [DynamoDBProperty(AttributeName = "Email")]
     public string Email { get; set; }
 
+    
+    [DynamoDBProperty(AttributeName = "Role")]
+    public string Role { get; set; }
+
 }

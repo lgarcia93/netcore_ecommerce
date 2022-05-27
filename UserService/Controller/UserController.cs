@@ -1,7 +1,7 @@
-using Core.Entity;
+
+using Core.Auth;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Model;
-using UserService.Repository;
 using UserService.Service;
 
 namespace UserService.Controller;
@@ -11,10 +11,12 @@ namespace UserService.Controller;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly IAuthHandler _authHandler;
 
-    public UserController(IUserService userService)
+    public UserController(IUserService userService, IAuthHandler authHandler)
     {
         _userService = userService;
+        _authHandler = authHandler;
     }
     
     [HttpPost]
@@ -25,18 +27,12 @@ public class UserController : ControllerBase
         if (!userExists)
         {
             var createdUser = await _userService.CreateUser(createUserModel);
+
+            var token = _authHandler.Create(createdUser);
             
-            return Ok(createdUser);
+            return Ok(new {User = createdUser, Auth = token});
         }
 
         return Conflict();
-    }
-
-    [HttpPost]
-    public Task<IActionResult> Login([FromBody] LoginModel loginModel)
-    {
-        
-        
-        return Task.FromResult<IActionResult>(Ok());
     }
 }

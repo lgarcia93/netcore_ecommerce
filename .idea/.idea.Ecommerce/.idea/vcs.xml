@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Lambdas/EcommerceAuthorizer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Lambdas/EcommerceAuthorizer/EcommerceAuthorizer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Lambdas/EcommerceAuthorizer2/EcommerceAuthorizer" vcs="Git" />
   </component>
 </project>

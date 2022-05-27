@@ -1,3 +1,4 @@
+using Core.Auth;
 using Core.Database.DynamoDB;
 using Core.Security;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -15,6 +16,7 @@ builder.Services.TryAddScoped<IUserRepository, DynamoDbUserRepository>();
 builder.Services.TryAddSingleton<IEncrypter, Pbkdf2Encrypter>();
 
 builder.Services.AddDynamoDb();
+builder.Services.AddJwt(builder.Configuration);
 
 var app = builder.Build();
 
