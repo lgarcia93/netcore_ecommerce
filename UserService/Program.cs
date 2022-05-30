@@ -22,4 +22,6 @@ var app = builder.Build();
 
 app.MapControllers();
 
+app.MapGet("/", () => "Health Check");
+
 app.Run();

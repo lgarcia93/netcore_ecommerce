@@ -1,13 +1,13 @@
 resource "aws_apigatewayv2_api" "ecommerceapi" {
   name          = "EcommerceApi"
-  protocol_type = "HTTP"  
+  protocol_type = "HTTP"
 }
 #
 #
 resource "aws_apigatewayv2_stage" "ecommerce_api_dev" {
-  api_id = aws_apigatewayv2_api.ecommerceapi.id
-  name   = "$default"
-   auto_deploy = true
+  api_id      = aws_apigatewayv2_api.ecommerceapi.id
+  name        = "$default"
+  auto_deploy = true
 }
 #
 
@@ -20,7 +20,7 @@ resource "aws_apigatewayv2_vpc_link" "ecommerceapi_link" {
 }
 #
 resource "aws_security_group" "vpc_link_sg" {
-  name = "vpclink-sg"
+  name   = "vpclink-sg"
   vpc_id = aws_vpc.ecommerce_vpc.id
 
   egress {
@@ -31,9 +31,9 @@ resource "aws_security_group" "vpc_link_sg" {
   }
 
   ingress {
-    from_port = 80
-    protocol  = "tcp"
-    to_port   = 80
+    from_port   = 80
+    protocol    = "tcp"
+    to_port     = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
 }

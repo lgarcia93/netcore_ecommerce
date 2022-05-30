@@ -23,7 +23,7 @@ public class CartController : ControllerBase
     {
         
         
-        await _cartService.AddProduct(product);
+      //  await _cartService.AddProduct(product);
         return Ok();
     }
 
