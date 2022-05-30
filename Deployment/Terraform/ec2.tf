@@ -6,8 +6,7 @@ resource "aws_instance" "ecommerce_machine" {
   subnet_id                   = aws_subnet.ecommerce-subnet-public-1.id
   key_name                    = "ec2api"
   iam_instance_profile        = "api"
-
-
+  
   tags = {
     Name        = var.name
     Environment = var.env
