@@ -96,12 +96,6 @@ resource "aws_ecs_service" "default" {
   name        = "ecom-ecs-service"
   cluster     = aws_ecs_cluster.ecom_cluster.id
   launch_type = "EC2"
-  #  network_configuration {
-  #    subnets = [
-  #      aws_subnet.ecommerce-subnet-private-1.id,
-  #      aws_subnet.ecommerce-subnet-private-2.id
-  #    ]
-  #  }
 
   task_definition = aws_ecs_task_definition.ecom_ecs_task.arn
   desired_count   = 1

@@ -3,28 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CartService.DbContext;
 
-public class DataContext : Microsoft.EntityFrameworkCore.DbContext
+public sealed class DataContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
-        
+       Database.Migrate();
     }
-    public DbSet<CartProduct> CartProducts { get; set; }
-
+    public DbSet<CartProduct> CartProduct { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Cart>(entity =>
-        {
-            entity.HasKey(e => e.CartId);
-            entity.Property(e => e.UserId).IsRequired();
-            entity.HasMany(e => e.Products);
-        });
-
+        
         modelBuilder.Entity<CartProduct>(entity =>
         {
-            entity.HasKey(e => e.ProductId);
+            entity.HasKey(e => e.Identifier);
         });
     }
 }

@@ -16,33 +16,25 @@ public class MySqlCartRepository : ICartRepository
 
     public async Task<IEnumerable<CartProduct>> LoadCart(string userId)
     {
-        return (await _context.CartProducts.ToListAsync()).Where(c => c.UserId == userId);
+        var cartProducts = await _context.CartProduct.ToListAsync();
+        var cartProductsFiltered = cartProducts.Where(c => c.UserId == userId);
+        return cartProductsFiltered;
     }
 
     public async Task AddProduct(CartProduct cartProduct)
     {
-        _context.CartProducts.Add(cartProduct);
+        _context.CartProduct.Add(cartProduct);
     
         await _context.SaveChangesAsync();
     }
     
     public async Task RemoveProduct(string productId, string userId)
     {
-        var cart = new CartProduct { ProductId = productId, UserId = userId};
-        
-        _context.Entry(cart);
-        _context.Remove(cart);
-
-        await _context.SaveChangesAsync();
+        await _context.Database.ExecuteSqlRawAsync("Delete from CartProduct where ProductId = {0} AND UserId = {1}", productId, userId);
     }
 
     public async Task ClearCart(string userId)
     {
-        var cart = new CartProduct { UserId = userId};
-        
-        _context.Entry(cart);
-        _context.Remove(cart);
-
-        await _context.SaveChangesAsync();
+        await _context.Database.ExecuteSqlRawAsync("Delete from CartProduct where UserId = {0}", userId);
     }
 }

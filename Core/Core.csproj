@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.34" />
+      <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.51" />
       <PackageReference Include="AWSSDK.ServiceDiscovery" Version="3.7.3.131" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
@@ -15,11 +16,13 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.18.0" />
       <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Database\DynamoDB\DynamoDBInitializer.cs" />
       <Compile Remove="Infrastructure\**" />
+      <Compile Remove="SecretsManager\Extension.cs" />
     </ItemGroup>
 
     <ItemGroup>

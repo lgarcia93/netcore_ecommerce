@@ -47,7 +47,7 @@ public class CartController : ControllerBase
         return Ok(cartProduct);
     }
 
-    [HttpDelete("/{productId}")]
+    [HttpDelete("{productId}")]
     [Authorize]
     public async Task<IActionResult> RemoveProduct(string productId)
     {

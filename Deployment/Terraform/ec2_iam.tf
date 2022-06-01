@@ -34,6 +34,38 @@ resource "aws_iam_role_policy" "dynamodb-policy" {
   })
 }
 
+resource "aws_iam_role_policy" "cloud_map_policity" {
+  name = "cloudmap_policy"
+  role = aws_iam_role.default.id
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "AllowInstancePermissions",
+        "Effect" : "Allow",
+        "Action" : [
+          "servicediscovery:RegisterInstance",
+          "servicediscovery:DeregisterInstance",
+          "servicediscovery:DiscoverInstances",
+          "servicediscovery:Get*",
+          "servicediscovery:List*",
+          "route53:GetHostedZone",
+          "route53:ListHostedZonesByName",
+          "route53:ChangeResourceRecordSets",
+          "route53:CreateHealthCheck",
+          "route53:GetHealthCheck",
+          "route53:DeleteHealthCheck",
+          "route53:UpdateHealthCheck",
+          "ec2:DescribeInstances"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+
+}
+
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "Ecommerce-EC2-Instance-Profile"
   role = aws_iam_role.default.name

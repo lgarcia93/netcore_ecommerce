@@ -25,8 +25,8 @@ public class DynamoDbUserRepository : IUserRepository
     
     public async Task<User> CreateUser(CreateUserModel user)
     {
-        var hashedPassword = _encrypter.GetHash(user.Password);
-        
+        //var hashedPassword = _encrypter.GetHash(user.Password);
+       
         var newUser = new User
         {
             UserId = Guid.NewGuid().ToString(),
@@ -35,7 +35,7 @@ public class DynamoDbUserRepository : IUserRepository
             Email = user.Email,
             BirthDay = user.BirthDay,
             UserName = user.UserName,
-            Password = hashedPassword,
+            Password = user.Password,//hashedPassword,
             Role = user.Role
         };
 
