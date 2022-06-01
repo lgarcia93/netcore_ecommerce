@@ -53,8 +53,8 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
     {
       name      = "product-service"
       image     = "${aws_ecr_repository.default.repository_url}:product-service-v1"
-      cpu       = 300
-      memory    = 128
+      cpu       = 200
+      memory    = 100
       essential = true
       portMappings = [
         {
@@ -66,8 +66,8 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
     {
       name      = "user-service"
       image     = "${aws_ecr_repository.default.repository_url}:user-service-v1"
-      cpu       = 300
-      memory    = 128
+      cpu       = 200
+      memory    = 100
       essential = true
       portMappings = [
         {
@@ -79,8 +79,8 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
     {
       name      = "cart-service"
       image     = "${aws_ecr_repository.default.repository_url}:cart-service-v1"
-      cpu       = 300
-      memory    = 128
+      cpu       = 200
+      memory    = 100
       essential = true
       portMappings = [
         {

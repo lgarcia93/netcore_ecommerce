@@ -19,9 +19,9 @@ resource "aws_apigatewayv2_route" "route_cart_remove_product" {
   target = "integrations/${aws_apigatewayv2_integration.apigateway_private_integration_cart.id}"
 }
 
-resource "aws_apigatewayv2_route" "route_cart_radd_product" {
+resource "aws_apigatewayv2_route" "route_cart_add_product" {
   api_id    = aws_apigatewayv2_api.ecommerceapi.id
-  route_key = "POST /api/cart/"
+  route_key = "POST /api/cart"
 
   target = "integrations/${aws_apigatewayv2_integration.apigateway_private_integration_cart.id}"
 }
