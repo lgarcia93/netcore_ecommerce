@@ -34,16 +34,6 @@ resource "aws_iam_role_policy" "dynamodb-policy" {
   })
 }
 
-#resource "aws_iam_role_policy_attachment" "rpa_dynamo_full_access" {
-#  role       = aws_iam_role.default.name
-#  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonDynamoDBFullAccess"
-#}
-#
-#resource "aws_iam_role_policy_attachment" "rpa_secrets_manager" {
-#  role       = aws_iam_role.default.name
-#  policy_arn = "arn:aws:iam::aws:policy/service-role/SecretsManagerReadWrite"
-#}
-
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "Ecommerce-EC2-Instance-Profile"
   role = aws_iam_role.default.name

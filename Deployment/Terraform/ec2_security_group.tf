@@ -14,11 +14,6 @@ resource "aws_security_group" "ecommerce_machine_sg" {
     protocol  = "tcp"
     to_port   = 5000
     #Accept requests on port 80 only from Network Load Balancer
-#    cidr_blocks = [
-#      aws_subnet.ecommerce-subnet-private-1.cidr_block,
-#      aws_subnet.ecommerce-subnet-private-2.cidr_block
-#    ]
-    #cidr_blocks = formatlist("%s/32", data.aws_network_interface.lb.*.private_ip)
     security_groups = [
       aws_security_group.alb_security_group.id
     ]
@@ -29,13 +24,6 @@ resource "aws_security_group" "ecommerce_machine_sg" {
     from_port = 6000
     protocol  = "tcp"
     to_port   = 6000
-#    cidr_blocks = [
-#      aws_subnet.ecommerce-subnet-private-1.cidr_block,
-#      aws_subnet.ecommerce-subnet-private-2.cidr_block
-#    ]
-    #Accept requests on port 80 only from Network Load Balancer    
-    #cidr_blocks = formatlist("%s/32", data.aws_network_interface.lb.*.private_ip)
-    #cidr_blocks = ["0.0.0.0/0"]
     security_groups = [
       aws_security_group.alb_security_group.id
     ]

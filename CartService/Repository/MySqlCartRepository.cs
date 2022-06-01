@@ -25,8 +25,6 @@ public class MySqlCartRepository : ICartRepository
 
         _context.Cart.Attach(cart);
         
-        
-        
         cart.Products.Add(cartProduct);
 
         await _context.SaveChangesAsync();

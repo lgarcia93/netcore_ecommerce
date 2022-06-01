@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.34" />
+      <PackageReference Include="AWSSDK.ServiceDiscovery" Version="3.7.3.131" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
