@@ -23,8 +23,19 @@ public class MySqlCartRepository : ICartRepository
 
     public async Task AddProduct(CartProduct cartProduct)
     {
-        _context.CartProduct.Add(cartProduct);
+        var product = _context.CartProduct.FirstOrDefault(c => c.ProductId == cartProduct.ProductId && c.UserId == cartProduct.UserId);
+
+        if (product == null)
+        {
+            _context.CartProduct.Add(cartProduct);
     
+            await _context.SaveChangesAsync();
+
+            return;
+        }
+
+        product.Quantity = cartProduct.Quantity;
+
         await _context.SaveChangesAsync();
     }
     
