@@ -21,18 +21,18 @@ public class MySqlCartRepository : ICartRepository
 
     public async Task AddProduct(AddProductToCartModel cartProduct, string cartId)
     {
-        var cart = new Cart { CartId = cartId };
+        var cart = new Cart {  };
 
         _context.Cart.Attach(cart);
         
-        cart.Products.Add(cartProduct);
+     //   cart.Products.Add(cartProduct);
 
         await _context.SaveChangesAsync();
     }
     
     public async Task RemoveProduct(string productId, string cartId)
     {
-        var cart = new Cart { CartId = cartId };
+        var cart = new Cart {  };
 
         _context.Cart.Attach(cart);
 

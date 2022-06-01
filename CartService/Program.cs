@@ -1,7 +1,7 @@
 using CartService.DbContext;
 using CartService.Repository;
 using CartService.Service;
-using Core.Database.DynamoDB;
+using Core.Database.DynamoDB;using Core.ServiceDiscovery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -21,4 +21,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Health Check");
 app.MapControllers();
+
+await new ServiceDiscovery().Discover();
+
 app.Run();
