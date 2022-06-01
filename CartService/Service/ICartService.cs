@@ -5,9 +5,9 @@ namespace CartService.Service;
 
 public interface ICartService
 {
-    public Task<Cart?> LoadCart(string userId);
+    public Task<IEnumerable<CartProduct>> LoadCart(string userId);
 
-    public Task AddProduct(AddProductToCartModel cartProduct, string cartId);
+    public Task AddProduct(CartProduct cartProduct);
 
     public Task RemoveProduct(string productId, string cartId);
     public Task ClearCart(string cartId);

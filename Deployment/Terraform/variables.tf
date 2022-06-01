@@ -16,7 +16,7 @@ variable "env" {
 variable "ami" {
   #default     = "ami-0c02fb55956c7d316"
   #ECS-Optimized
-  default = "ami-0dce57de6dcc3a6cc"
+  default     = "ami-0dce57de6dcc3a6cc"
   description = "AMI to use in the EC2"
 }
 variable "instance_type" {

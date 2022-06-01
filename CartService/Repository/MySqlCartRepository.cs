@@ -14,41 +14,35 @@ public class MySqlCartRepository : ICartRepository
         _context = dataContext;
     }
 
-    public async Task<Cart?> LoadCart(string userId)
+    public async Task<IEnumerable<CartProduct>> LoadCart(string userId)
     {
-        return (await _context.Cart.ToListAsync()).FirstOrDefault(c => c.UserId == userId);
+        return (await _context.CartProducts.ToListAsync()).Where(c => c.UserId == userId);
     }
 
-    public async Task AddProduct(AddProductToCartModel cartProduct, string cartId)
+    public async Task AddProduct(CartProduct cartProduct)
     {
-        var cart = new Cart {  };
-
-        _context.Cart.Attach(cart);
-        
-     //   cart.Products.Add(cartProduct);
-
+        _context.CartProducts.Add(cartProduct);
+    
         await _context.SaveChangesAsync();
     }
     
-    public async Task RemoveProduct(string productId, string cartId)
+    public async Task RemoveProduct(string productId, string userId)
     {
-        var cart = new Cart {  };
-
-        _context.Cart.Attach(cart);
-
-        cart.Products.Remove(new CartProduct{ProductId = productId});
+        var cart = new CartProduct { ProductId = productId, UserId = userId};
+        
+        _context.Entry(cart);
+        _context.Remove(cart);
 
         await _context.SaveChangesAsync();
     }
 
-    public async Task ClearCart(string cartId)
+    public async Task ClearCart(string userId)
     {
-        var cart = new Cart { CartId = new Guid() };
+        var cart = new CartProduct { UserId = userId};
         
-        _context.Cart.Attach(cart);
-
+        _context.Entry(cart);
         _context.Remove(cart);
-        
+
         await _context.SaveChangesAsync();
     }
 }

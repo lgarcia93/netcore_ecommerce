@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "default" {
 
 resource "aws_iam_role" "default" {
   name               = "ec2_role"
-  assume_role_policy = data.aws_iam_policy_document.default.json    
+  assume_role_policy = data.aws_iam_policy_document.default.json
 }
 
 resource "aws_iam_role_policy_attachment" "rpa_ec2containerservice" {

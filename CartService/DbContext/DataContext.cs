@@ -9,7 +9,7 @@ public class DataContext : Microsoft.EntityFrameworkCore.DbContext
     {
         
     }
-    public DbSet<Cart> Cart { get; set; }
+    public DbSet<CartProduct> CartProducts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -12,14 +12,14 @@ public class CartService : ICartService
         _cartRepository = repository;
     }
 
-    public Task<Cart?> LoadCart(string userId)
+    public Task<IEnumerable<CartProduct>> LoadCart(string userId)
     {
         return _cartRepository.LoadCart(userId);
     }
 
-    public Task AddProduct(AddProductToCartModel cartProduct, string cartId)
+    public Task AddProduct(CartProduct cartProduct)
     {
-        return _cartRepository.AddProduct(cartProduct, cartId);
+        return _cartRepository.AddProduct(cartProduct);
     }
 
     public Task RemoveProduct(string productId, string cartId)

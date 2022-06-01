@@ -5,10 +5,10 @@ namespace CartService.Repository;
 
 public interface ICartRepository
 {
-    public Task<Cart?> LoadCart(string userId);
+    public Task<IEnumerable<CartProduct>> LoadCart(string userId);
 
-    public Task AddProduct(AddProductToCartModel cartProduct, string cartId);
+    public Task AddProduct(CartProduct cartProduct);
 
-    public Task RemoveProduct(string productId, string cartId);
-    public Task ClearCart(string cartId);
+    public Task RemoveProduct(string productId,  string userId);
+    public Task ClearCart(string userId);
 }

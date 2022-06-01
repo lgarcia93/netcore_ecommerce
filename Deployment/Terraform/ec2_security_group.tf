@@ -9,6 +9,7 @@ resource "aws_security_group" "ecommerce_machine_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  #Product Service
   ingress {
     from_port = 5000
     protocol  = "tcp"
@@ -20,10 +21,21 @@ resource "aws_security_group" "ecommerce_machine_sg" {
     #cidr_blocks = ["0.0.0.0/0"]
   }
 
+  #User Service
   ingress {
     from_port = 6000
     protocol  = "tcp"
     to_port   = 6000
+    security_groups = [
+      aws_security_group.alb_security_group.id
+    ]
+  }
+
+  #Cart Service
+  ingress {
+    from_port = 5001
+    protocol  = "tcp"
+    to_port   = 5001
     security_groups = [
       aws_security_group.alb_security_group.id
     ]

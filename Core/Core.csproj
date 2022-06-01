@@ -19,6 +19,15 @@
 
     <ItemGroup>
       <Compile Remove="Database\DynamoDB\DynamoDBInitializer.cs" />
+      <Compile Remove="Infrastructure\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Infrastructure\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Infrastructure\**" />
     </ItemGroup>
 
 </Project>

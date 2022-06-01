@@ -2,9 +2,9 @@ resource "aws_ecr_repository" "default" {
   name                 = "ecom"
   image_tag_mutability = "IMMUTABLE"
 
-    provisioner "local-exec" {
-      command = "./build-images.sh ${local.account_id}"
-    }
+  provisioner "local-exec" {
+    command = "./build-images.sh ${local.account_id}"
+  }
 }
 
 resource "aws_ecr_repository_policy" "ecom_repo_policy" {
@@ -48,7 +48,7 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
   network_mode = "host"
 
   requires_compatibilities = ["EC2"]
-  
+
   container_definitions = jsonencode([
     {
       name      = "product-service"
@@ -75,7 +75,20 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
           hostPort      = 6000
         }
       ]
-    }    
+    },
+    {
+      name      = "cart-service"
+      image     = "${aws_ecr_repository.default.repository_url}:cart-service-v1"
+      cpu       = 300
+      memory    = 128
+      essential = true
+      portMappings = [
+        {
+          containerPort = 5001
+          hostPort      = 5001
+        }
+      ]
+    }
   ])
 }
 
@@ -83,13 +96,13 @@ resource "aws_ecs_service" "default" {
   name        = "ecom-ecs-service"
   cluster     = aws_ecs_cluster.ecom_cluster.id
   launch_type = "EC2"
-#  network_configuration {
-#    subnets = [
-#      aws_subnet.ecommerce-subnet-private-1.id,
-#      aws_subnet.ecommerce-subnet-private-2.id
-#    ]
-#  }
+  #  network_configuration {
+  #    subnets = [
+  #      aws_subnet.ecommerce-subnet-private-1.id,
+  #      aws_subnet.ecommerce-subnet-private-2.id
+  #    ]
+  #  }
 
-  task_definition = aws_ecs_task_definition.ecom_ecs_task.arn  
+  task_definition = aws_ecs_task_definition.ecom_ecs_task.arn
   desired_count   = 1
 }
