@@ -88,6 +88,19 @@ resource "aws_ecs_task_definition" "ecom_ecs_task" {
           hostPort      = 5001
         }
       ]
+    },
+    {
+      name      = "order-service"
+      image     = "${aws_ecr_repository.default.repository_url}:order-service-v1"
+      cpu       = 200
+      memory    = 100
+      essential = true
+      portMappings = [
+        {
+          containerPort = 5030
+          hostPort      = 5030
+        }
+      ]
     }
   ])
 }

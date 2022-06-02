@@ -10,22 +10,22 @@ RUN dotnet restore ./Core
 
 COPY ./Core/ ./Core/
 
-COPY ./CartService/*.csproj ./CartService/
+COPY ./OrderService/*.csproj ./OrderService/
 
-RUN dotnet restore ./CartService
+RUN dotnet restore ./OrderService
 
-COPY ./CartService/ ./CartService/
+COPY ./OrderService/ ./OrderService/
 
-RUN dotnet publish ./CartService -c Release -o out
+RUN dotnet publish ./OrderService -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-EXPOSE 5001
+EXPOSE 5030
 
-ENV ASPNETCORE_URLS http://+:5001
+ENV ASPNETCORE_URLS http://+:5030
 ENV AWS_ACCOUNT_ID aws_account_id
 
-ENTRYPOINT ["dotnet", "CartService.dll"]
+ENTRYPOINT ["dotnet", "OrderService.dll"]

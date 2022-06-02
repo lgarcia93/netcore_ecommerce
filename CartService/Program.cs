@@ -7,22 +7,18 @@ using Core.Database.DynamoDB;
 using Core.SecretsManager;
 using Core.ServiceDiscovery;
 using Core.ServiceDiscovery.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+//Will move to Secrets Manager soon
 var connectionString = "server=localhost;database=cart;user=root;password=dev12345";
 
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-
 });
 
 builder.Services.TryAddScoped<ICartService, CartService.Service.CartService>();

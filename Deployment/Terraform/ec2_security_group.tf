@@ -41,6 +41,16 @@ resource "aws_security_group" "ecommerce_machine_sg" {
     ]
   }
 
+  #Order Service
+  ingress {
+    from_port = 5030
+    protocol  = "tcp"
+    to_port   = 5030
+    security_groups = [
+      aws_security_group.alb_security_group.id
+    ]
+  }
+  
   egress {
     from_port   = 0
     to_port     = 0

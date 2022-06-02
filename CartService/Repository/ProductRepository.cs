@@ -20,8 +20,10 @@ public class ProductRepository : IProductRepository
         var client = new RestClient(
             String.Format(
                 "http://{0}:{1}/api/product/{2}",
-                serviceInfo.IP, 
-                serviceInfo.Port,
+               // serviceInfo.IP,
+                "localhost",
+               8082,
+                //serviceInfo.Port,
                 productId)
             );
 
